@@ -33,7 +33,7 @@ public class Player_ov : MonoBehaviour
         
         rb.MovePosition(currentPos + InputVector);
 
-     //   playerAnimation.SetDirection(new Vector2(moveH, moveV));
+        playerAnimation.SetDirection(new Vector2(moveH, moveV));
     }
 
     private void OnTriggerEnter2D(Collider2D other) 
@@ -44,19 +44,23 @@ public class Player_ov : MonoBehaviour
             Destroy(other.gameObject);
             MyScoreText.text = "발견한 상자 : " + ScoreNum;
         }
-        else if (other.gameObject.transform.CompareTag("Bora"))
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Bora"))
         {
-            //Health.health = -38f;
-            Dead();
-          //  Soundbimyeug.Play();
-            Debug.Log("보라돌이에게 공격 당했습니다.");
+            Health.health -= 84f;
+           // Debug.Log("보라돌이에게 공격 잡혔습니다.");
             
-         //  if (Health.health <= 0f)
-         //   {
-            //    Time.timeScale = 0f;
-                // Debug.Log("멧돼지가 사망했습니다..");
-           // }
+            if (Health.health <= 0f)
+            {
+                Debug.Log("보라돌이에게 공격 잡혔습니다.");
+                Time.timeScale = 0f;
+                //Debug.Log("보라돌이에게 공격 잡혔습니다.");
+            }
         }
+        
     }
 
     public void Dead()
