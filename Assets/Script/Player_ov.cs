@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Player_ov : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class Player_ov : MonoBehaviour
     private float moveH, moveV;
     private PlayerAnimation playerAnimation;
     public float movespeed = 1.0f;
+    public TextMeshProUGUI MyScoreText;
+    private int ScoreNum;
+ //   public AudioSource Soundbimyeug;
 
     private void Awake()
     {
@@ -31,6 +35,43 @@ public class Player_ov : MonoBehaviour
 
         playerAnimation.SetDirection(new Vector2(moveH, moveV));
     }
-    
+
+    private void OnTriggerEnter2D(Collider2D other) 
+    {
+        if (other.gameObject.transform.CompareTag("Treasure"))
+        {
+            ScoreNum += 1;
+            Destroy(other.gameObject);
+            MyScoreText.text = "발견한 상자 : " + ScoreNum;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Bora"))
+        {
+            Health.health -= 84f;
+           // Debug.Log("보라돌이에게 공격 잡혔습니다.");
+            
+            if (Health.health <= 0f)
+            {
+                Debug.Log("보라돌이에게 공격 잡혔습니다.");
+                Time.timeScale = 0f;
+                //Debug.Log("보라돌이에게 공격 잡혔습니다.");
+            }
+        }
+        
+    }
+
+    public void Dead()
+    {
+        Destroy(gameObject);
+    }
+    //   else if (collision.gameObject.CompareTag("Car"))
+     //   {
+           // SoundCar.Play();
+       // }
+        
+    //}
     
 }

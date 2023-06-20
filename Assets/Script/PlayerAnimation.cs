@@ -20,7 +20,7 @@ public class PlayerAnimation : MonoBehaviour
     {
         if (dircetion.magnitude < 0.01)
         {
-            anim.Play(staticDirection[lastDir]); // nangqgqwggwqwg
+            anim.Play(staticDirection[lastDir]);
         }
         else
         {
